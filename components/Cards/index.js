@@ -56,24 +56,41 @@ data{
 
 */
 
+axios.get('https://lambda-times-backend.herokuapp.com/articles')
+  .then(response => {
+   let articleTopics = Object.entries(response.data.articles)
+   console.log(articleTopics);
+   for(let [key,value] of articleTopics){
+     value.forEach( topic =>{
+       cardMaker(topic);
+     })
+   }
+  })
+  const cardCont = document.querySelector('.cards-container');
+  
+
+
+  function cardMaker(card){
     let cardC = document.createElement('div');
-    let headlineC = document.createElement('div');
-    let authorC = document.createElement('div');
-    let imgC = document.createElement('div');
-    let imgSrc = document.createElement('img');
-    let authorN = document.createElement('span');
+        let headlineC = document.createElement('div');
+        let authorC = document.createElement('div');
+        let imgC = document.createElement('div');
+        let imgSrc = document.createElement('img');
+        let authorN = document.createElement('span');
 
-    cardC.classList.add('card');
-    headlineC.classList.add('headline');
-    authorC.classList.add('author');
+        cardC.classList.add('card');
+        headlineC.classList.add('headline');
+        authorC.classList.add('author');
+        imgC.classList.add('img-container');
+        
+        headlineC.textContent = card.headline;
+        authorN.textContent = card.authorName;
+        imgSrc.src = card.authorPhoto;
     
-    headlineC.textContent = 
-    authorN.textContent = 
-
-    cardC.appendChild(headlineC);
-    cardC.appendChild(authorC);
-    authorC.appendChild(imgC);
-    authorC.appendChild(authorN);
-    imgC.appendChild(imgSrc);
-    
-    
+        cardC.appendChild(headlineC);
+        cardC.appendChild(authorC);
+        authorC.appendChild(imgC);
+        authorC.appendChild(authorN);
+        imgC.appendChild(imgSrc);
+        cardCont.appendChild(cardC);
+  }
